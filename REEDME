@@ -1,0 +1,126 @@
+#################################################################################
+
+
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+
+#############################################################################################
+
+settear puertos al contenedor
+
+
+    stop running container
+
+    docker stop test01
+
+    commit the container
+
+    docker commit test01 test02
+
+    NOTE: The above, test02 is a new image that I'm constructing from the test01 container.
+
+    re-run from the commited image
+
+    docker run -p 8080:8080 -td test02
+	
+	
+	conectar al contenedor de mysql
+	docker exec -t -i <container_name> /bin/bash
+	mysql -u “<useranme>” -p
+
+#################################################################################################
+
+1) crear cuenta en AWS Amazon. com
+2) launch instance
+3) seleccionar amazon linux AMI (Amazon machine image)
+4) seleccionar tipo de instancia
+5) add rule http : 80
+6) review and launch
+7) launch
+8) crear nuevo key pair y asignar cualquier nombre
+
+ya en consola desde ssh -i fileRSADescargado user@ip
+sudo yum update -y
+
+instalar docker
+sudo yum install -y docker
+
+iniciar docker
+sudo service docker start
+
+iniciar docker cada reinicio
+sudo chkconfig docker on
+
+agregar usuario a grupo docker
+sudo usermod -a -G docker usuario
+
+listar conteneddores que se estan ejecutando 
+docker ps
+
+listar todos los contenedores
+docker ps -a
+
+listar imagenes
+docker image
+
+eliminar imagenes con sus contenedores
+docker rmi -f imagen:tag
+
+generar imagen desde contenedor
+docker commit idContenedor nombreusuario/nombreimagen
+
+tambien se genera pasando el nombre
+docker commit nombrecontenedor nombreusuario/nombreimagen
+
+generar un tag para subir la imagen a docker hub
+docker tab nombre/usuarionombreimagen nobreusuario/nombreimagendeseado
+
+logearse en docker hub desde terminal
+docker login
+
+para subir imagen en docker hub
+docker push usuario/nombreimagen
+
+listar redes activas
+docker network ls
+
+mostrar propiedades de red 
+docker network inspect nombrered
+
+crear nueva red
+docker network create nombrered
+
+eliminar contenedor de la red
+docker network disconnect nombrered nombrecontenedor
+
+agregar contenedor a la red
+docker network connect nombrered nombrecontenedor
+
+configurar servidor web apache
+buscar imagen httpd en docker hub
+
+asignar directorio para poner paginas web en contenedor apache
+docker run --name apacheServer -p 9080:80 -v /home/ozjavier/Documents/:/usr/local/apache2/htdocs -d httpd:latest
+
+entrar en el contenedor ubuntu
+docker run -it nombreImagen:tag /bin/bash
+
+iniciar servicio docker
+sudo systemctl start docker
+
+cambiar ips contenedores docker
+docker network create --driver=bridge --subnet=192.168.0.0/24 nameNetwork
+docker network connect nameNetwork containerName
+docker start containerName
+
+dockerfile
+FROM <-- define imagen base
+MAINTAINER <-- creador del contenedor
+RUN <-- nos permite ejecutar comandos en la imagen antes de ser creada
+ADD/COPY <-- agregar o copiar archivos desde el equipo local a la imagen
+EXPOSE <-- expone por defecto un puerto del contenedor
+CMD <-- ejecutar un comando por defecto al crear el contenedor
+
+ejecutar dockerfile
+docker build -t nombreImagen rutaDockerFile
