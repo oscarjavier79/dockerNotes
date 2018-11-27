@@ -124,3 +124,11 @@ CMD <-- ejecutar un comando por defecto al crear el contenedor
 
 ejecutar dockerfile
 docker build -t nombreImagen rutaDockerFile
+
+
+
+
+
+#############################################################################
+https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-intro-to-microservices-part-1-c0d24cd422c3
+https://dzone.com/articles/buiding-microservice-using-spring-boot-and-docker?fromrel=true
