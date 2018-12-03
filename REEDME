@@ -135,3 +135,4 @@ https://dzone.com/articles/buiding-microservice-using-spring-boot-and-docker?fro
 https://dwmkerr.com/learn-docker-by-building-a-microservice/
 https://springbootdev.com/2017/11/30/docker-spring-boot-and-spring-data-jpa-mysql-rest-api-example-with-docker-without-docker-compose/
 url: ${HOST}/my-page
+https://stormpath.com/blog/microservices-jwt-spring-boot
