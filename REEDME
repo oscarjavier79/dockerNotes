@@ -126,10 +126,19 @@ ejecutar dockerfile
 docker build -t nombreImagen rutaDockerFile
 
 
+###############################################################################################################################
+ORACLE DOCKER
 
+starting oracle
+docker run -d -it --name oracleDB -p 1521:1521 -p 5500:5500 -v /home/oscarjavier/tools/oracle:/opt/oracle/oradata oraclelinux:latest
 
+connect to container
+docker exec -it oracle /bin/bash
 
-#############################################################################
+conect in contaianer to sqlplus
+sqlplus system/LetsDocker@ORCLPDB1
+
+###############################################################################################################################
 https://medium.com/omarelgabrys-blog/microservices-with-spring-boot-intro-to-microservices-part-1-c0d24cd422c3
 https://dzone.com/articles/buiding-microservice-using-spring-boot-and-docker?fromrel=true
 https://dwmkerr.com/learn-docker-by-building-a-microservice/
