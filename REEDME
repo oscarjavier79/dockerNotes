@@ -4,6 +4,7 @@
 
 docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
 
+docker run -p 3306:3306 -d --name=docker-mysql --env="MYSQL_ROOT_PASSWORD=root" -e "MYSQL_PASSWORD=root" -e "MYSQL_DATABASE=test" mysql
 
 #############################################################################################
 
@@ -145,3 +146,50 @@ https://dwmkerr.com/learn-docker-by-building-a-microservice/
 https://springbootdev.com/2017/11/30/docker-spring-boot-and-spring-data-jpa-mysql-rest-api-example-with-docker-without-docker-compose/
 url: ${HOST}/my-page
 https://stormpath.com/blog/microservices-jwt-spring-boot
+
+
+
+############################################################################################################
+
+MAVEN
+<properties>
+		<java.version>1.8</java.version>
+		<docker.image.prefix>login-service</docker.image.prefix>
+	</properties>
+
+
+<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.3</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+			
+			
+-----------------------------------------------------------------------------------------------------------------------	
+			
+			
+execute command maven
+mvn package docker:build
+
+create container
+docker run -p 8091:8091 -t login-service/login-service
+
+
+---------------------------------------------------------------------------------
+
+FROM java:8
+VOLUME /tmp
+ADD src/main/docker/login-service-0.0.1-SNAPSHOT.jar app.jar
+RUN bash -c 'touch /app.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
