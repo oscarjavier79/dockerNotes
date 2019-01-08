@@ -193,3 +193,25 @@ VOLUME /tmp
 ADD src/main/docker/login-service-0.0.1-SNAPSHOT.jar app.jar
 RUN bash -c 'touch /app.jar'
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+
+
+---------------------------------------------------------------------------------
+create file with name dockerfile
+copy jar to location of dockerfile
+
+FROM java:8
+LABEL maintainer="OscarJavier"
+VOLUME /tmp
+EXPOSE 8092
+ARG JAR_FILE=/survey-service-0.0.1-SNAPSHOT.jar
+ADD ${JAR_FILE} survey-service.jar
+RUN bash -c 'touch /survey-service.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/survey-service.jar"]
+
+
+execute
+
+sudo docker image build -t survey-service . -f dockerfile
+
+
